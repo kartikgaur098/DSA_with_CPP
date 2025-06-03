@@ -9,10 +9,10 @@ public:
                 return {i+1 , j+1};
             }
             if(ans> target){
-                j--;
+                --j;
             }
             else{
-                i++;
+                ++i;
             }
         }
         return {} ;
