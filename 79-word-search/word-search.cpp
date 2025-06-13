@@ -6,7 +6,7 @@ public:
         if (i == word.size()) // all chars matched, mil gaya
             return true;
 
-        if (row < 0 || row >= B.size() || col < 0 || col >= B[0].size() || B[row][col] != word[i] || B[row][col] == '%')
+        if (row < 0 || row >= B.size() || col < 0 || col >= B[0].size() || B[row][col] != word[i] )
             return false;
 
         // I've reached here means, current ith word char, has matched.
