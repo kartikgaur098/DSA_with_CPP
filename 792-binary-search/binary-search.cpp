@@ -4,7 +4,7 @@ public:
       int start =0;
       int end = nums.size()-1;
       int size = nums.size()-1; 
-      int mid= (start + end)>>1;
+      int mid= start + (end -start)/2; // fail proof form integer oveflow e or s dono int max hogye us case m  
 
       while(start <= end){
         if(target == nums[mid]){
