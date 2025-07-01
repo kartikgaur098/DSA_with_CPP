@@ -1,9 +1,8 @@
 class Solution {
 public:
     int missingNumber(vector<int>& nums) {
-        sort(nums.begin(), nums.end());  // Sort to ensure binary search works
-        int start = 0;
-        int end = nums.size() - 1;
+        sort(nums.begin(), nums.end());  // O(n log n)
+        int start = 0, end = nums.size() - 1;
 
         while (start <= end) {
             int mid = start + (end - start) / 2;
@@ -15,6 +14,6 @@ public:
             }
         }
 
-        return start;  // The missing number
+        return start;
     }
 };
