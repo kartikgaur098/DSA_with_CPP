@@ -9,20 +9,30 @@
  *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
  * };
  */
-
 class Solution {
 public:
-    bool hasPathSum(TreeNode* root, int targetSum) {
-        // Base case: if the tree is empty
-        if (root == nullptr) return false;
-
-        // If it's a leaf node, check if current value equals the targetSum
-        if (root->left == nullptr && root->right == nullptr) {
-            return targetSum == root->val;
+    bool solve(TreeNode* root , int targetSum , int sum){
+        if(root == NULL){
+            return false;
+        }
+        sum = sum + root->val ; 
+        if(root->left == NULL && root->right == NULL){
+            if(sum == targetSum){
+                return true ;
+            }
+            else {
+                return false ;
+            }
         }
 
-        // Recur on left and right subtrees with reduced sum
-        int newSum = targetSum - root->val;
-        return hasPathSum(root->left, newSum) || hasPathSum(root->right, newSum);
+        bool leftans = solve(root->left , targetSum , sum);
+        bool rightans = solve(root->right , targetSum , sum);
+
+        return rightans || leftans ;
+    }
+    bool hasPathSum(TreeNode* root, int targetSum) {
+        int sum = 0 ;
+        int ans = solve(root , targetSum , sum) ;
+        return ans ;
     }
 };
