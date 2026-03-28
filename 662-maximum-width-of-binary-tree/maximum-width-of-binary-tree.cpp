@@ -27,7 +27,8 @@ public:
             maxWidth = max(maxWidth , updatedMaxwidth);
             for(unsigned long long i = 0 ; i < currLevelSize ; i++){
                 auto front = q.front();
-                  q.pop();
+                q.pop();
+
                 if(front.first->left){
                     q.push({front.first->left , 2*front.second+1});
                 }
