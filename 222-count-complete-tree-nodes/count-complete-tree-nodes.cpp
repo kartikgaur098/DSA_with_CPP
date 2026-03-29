@@ -11,41 +11,32 @@
  */
 class Solution {
 public:
+    int leftHeight(TreeNode* root){
+        int count = 0 ;
+        while(root != NULL){
+            count++;
+            root = root->left ;
+        }
+        return count ;
+    }
+    int rightHeight(TreeNode* root){
+        int count = 0 ;
+        while(root != NULL){
+            count++;
+            root = root->right ;
+        }
+        return count ;
+    }
     int countNodes(TreeNode* root) {
-        // Base case: if tree is empty
-        if (root == nullptr) return 0;
+        
+        if(root == NULL) return 0 ;
 
-        // Find leftmost depth and rightmost depth
-        int leftDepth = getLeftDepth(root);
-        int rightDepth = getRightDepth(root);
+        int lh = leftHeight(root);
+        int rh = rightHeight(root);
+        if(lh == rh) return (1 << lh) - 1 ;
 
-        // If both depths are equal, it's a perfect tree
-        if (leftDepth == rightDepth) {
-            // Total nodes in perfect binary tree = 2^depth - 1
-            return (1 << leftDepth) - 1;
-        }
+        // lh != rh 
 
-        // Otherwise, recursively count left and right
-        return 1 + countNodes(root->left) + countNodes(root->right);
-    }
-
-    // Helper to calculate depth by going left
-    int getLeftDepth(TreeNode* node) {
-        int depth = 0;
-        while (node) {
-            node = node->left;
-            depth++;
-        }
-        return depth;
-    }
-
-    // Helper to calculate depth by going right
-    int getRightDepth(TreeNode* node) {
-        int depth = 0;
-        while (node) {
-            node = node->right;
-            depth++;
-        }
-        return depth;
+        return 1+ countNodes(root->left) + countNodes(root->right);
     }
 };
