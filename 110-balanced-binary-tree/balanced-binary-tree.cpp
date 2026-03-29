@@ -11,41 +11,21 @@
  */
 class Solution {
 public:
+   
+    int Height(TreeNode* root , bool &isbalanced){
+        if(root == NULL) return 0;
+        int lh = Height(root->left , isbalanced);
+        int rh = Height(root->right , isbalanced);
 
-    int getHeight(TreeNode * root){
-        if(root== NULL){
-            return 0;
+        int height  = abs(lh-rh);
+        if(isbalanced == true && height > 1){
+            isbalanced = false ;
         }
-        int lh = getHeight(root->left);
-        int rh= getHeight(root->right);
-
-        int height = max(lh , rh)+ 1;
-        return height ;
+        return 1 + max(lh ,  rh) ;
     }
     bool isBalanced(TreeNode* root) {
-        if(root == NULL){
-            return true ;
-        }
-
-        // Now check for curr node 
-        int lh = getHeight(root->left);
-        int rh = getHeight(root->right);
-        int absdiff = abs(lh - rh);
-        bool status;
-        if(absdiff<=1){
-            status = true; 
-        }
-        else {
-            status = false ;
-        }
-
-        int leftstatus = isBalanced(root->left);
-        int rightstatus = isBalanced(root->right);
-
-        if(status && leftstatus && rightstatus){
-            return true;
-        }else{
-            return false ;
-        }
+        bool isbalanced = true ;
+        int ans = Height(root  , isbalanced);
+        return isbalanced ;
     }
 };
