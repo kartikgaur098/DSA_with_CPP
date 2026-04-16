@@ -1,60 +1,78 @@
 class Solution {
 public:
-    int solve(vector<int>& coins, int amount){
-        if( amount == 0 ){
-            return 0 ;
+    int solve(vector<int>& coins, int amount) {
+        if (amount == 0) {
+            return 0;
         }
-         int mincoinans = INT_MAX;
-        for(int i=0 ; i< coins.size() ; i++){
+        int mincoinans = INT_MAX;
+        for (int i = 0; i < coins.size(); i++) {
             int coin = coins[i];
 
-            if(coin <= amount){
-                int recAns = solve(coins , amount - coin);
+            if (coin <= amount) {
+                int recAns = solve(coins, amount - coin);
 
-                if(recAns != INT_MAX){
-                    int coinsused = 1+ recAns ;
-                    mincoinans = min(coinsused , mincoinans);
+                if (recAns != INT_MAX) {
+                    int coinsused = 1 + recAns;
+                    mincoinans = min(coinsused, mincoinans);
                 }
             }
         }
-        return mincoinans ;
+        return mincoinans;
     }
 
-      int solveMem(vector<int>& coins, int amount , vector<int> &dp){
-        if( amount == 0 ){
-            return 0 ;
-        }
+    int solveMem(vector<int>& coins, int amount, vector<int>& dp) {
 
-        if(dp[amount]!= -1){
+        if (dp[amount] != -1) {
             return dp[amount];
         }
-         int mincoinans = INT_MAX;
-        for(int i=0 ; i< coins.size() ; i++){
+        int mincoinans = INT_MAX;
+        for (int i = 0; i < coins.size(); i++) {
             int coin = coins[i];
 
-            if(coin <= amount){
-                int recAns = solveMem(coins , amount - coin , dp);
+            if (coin <= amount) {
+                int recAns = solveMem(coins, amount - coin, dp);
 
-                if(recAns != INT_MAX){
-                    int coinsused = 1+ recAns ;
-                    mincoinans = min(coinsused , mincoinans);
+                if (recAns != INT_MAX) {
+                    int coinsused = 1 + recAns;
+                    mincoinans = min(coinsused, mincoinans);
                 }
             }
         }
-        dp[amount] = mincoinans ;
-        return dp[amount] ;
+        dp[amount] = mincoinans;
+        return dp[amount];
     }
 
+    int solveTab(vector<int>& coins, int amount) {
+        vector<int> dp(amount + 1, -1);
+        dp[0] = 0;
 
+        for (int amt = 1; amt <=amount; amt++) {
+            int mincoinans = INT_MAX;
+            for (int i = 0; i < coins.size(); i++) {
+                int coin = coins[i];
 
+                if (coin <= amt) {
+                    int recAns = dp[amt - coin];
+
+                    if (recAns != INT_MAX) {
+                        int coinsused = 1 + recAns;
+                        mincoinans = min(coinsused, mincoinans);
+                    }
+                }
+            }
+        
+        dp[amt] = mincoinans;
+        
+        }
+        return dp[amount];
+    }
 
     int coinChange(vector<int>& coins, int amount) {
-        vector<int> dp(amount+1 , -1);
-        int ans = solveMem(coins , amount  , dp);
-        if(ans == INT_MAX){
-            return -1 ;
+        int ans = solveTab(coins, amount);
+        if (ans == INT_MAX) {
+            return -1;
         }
 
-        return ans ;
+        return ans;
     }
 };
