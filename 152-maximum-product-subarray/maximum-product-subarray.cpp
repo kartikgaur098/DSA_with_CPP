@@ -14,9 +14,10 @@ public:
             if(suff == 0){
                 suff = 1;
             }
+
             pref = pref * nums[i];
             suff= suff * nums[n-i-1];
-ans = max(ans , max(pref , suff));
+            ans = max(ans , max(pref , suff));
 
             
 
