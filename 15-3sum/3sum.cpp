@@ -13,7 +13,7 @@ public:
             else {
                 res.push_back({a[i], a[l], a[r]});
                 while (l < r && a[l] == a[l+1]) l++;
-                while (l < r && a[r] == a[r-1]) r--;
+                // while (l < r && a[r] == a[r-1]) r--;
                 l++; r--;
             }
         }
