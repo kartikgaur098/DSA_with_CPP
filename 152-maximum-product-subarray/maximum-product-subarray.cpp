@@ -19,10 +19,8 @@ public:
             suff= suff * nums[n-i-1];
             ans = max(ans , max(pref , suff));
 
-            
-
-            
         }
         return ans ;
     }
 };
+// Striver approch youtube 
