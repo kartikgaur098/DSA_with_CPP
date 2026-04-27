@@ -1,20 +1,19 @@
 class Solution {
 public:
     int jump(vector<int>& nums) {
-        int totalJumps = 0;
-        int coverage = 0;
-        int lastJumpIndex = 0;
-        int destination = nums.size() - 1;
-        if (nums.size() == 1)
-            return 0;
-        for (int i = 0; i < nums.size() - 1; i++) {
-            coverage = max(coverage, i + nums[i]);
-            if (i == lastJumpIndex) {
-                lastJumpIndex = coverage;
-                totalJumps++;
+        int left = 0;
+        int right = 0 ;
+        int farthest = 0 ;
+        int jumps = 0;
+
+        while(right < nums.size() - 1){
+            for(int  i = left ; i<=right ; i++ ){
+            farthest = max(farthest , i+nums[i]);
             }
+                left = right + 1;
+                right = farthest ;
+                jumps =  jumps+1 ;
         }
-        return totalJumps;
+        return jumps ;
     }
-    
 };
