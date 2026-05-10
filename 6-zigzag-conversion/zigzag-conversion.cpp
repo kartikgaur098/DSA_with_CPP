@@ -1,40 +1,37 @@
 class Solution {
 public:
     string convert(string s, int numRows) {
-        // If only one row or string is too short, return original string
-        if (numRows == 1 || s.size() <= numRows)
-            return s;
+        if(numRows == 1 || s.length() < numRows){
+            return s ;
+        }
+        vector<string> rows(numRows) ;
+        int currRow = 0 ;
+        bool goingDown = true ;
 
-        // Create a vector to hold strings for each row
-        vector<string> rows(numRows);
+        for(int i = 0 ; i< s.size() ; i++){
+            rows[currRow] = rows[currRow] + s[i] ;
 
-        int row = 0;           // Current row index
-        bool goingDown = true; // Direction flag: true means moving down
+            if(currRow == 0){
+                goingDown = true ;
+            } 
 
-        // Loop through each character in the input string
-        for (int i = 0; i < s.size(); i++) {
-            rows[row] += s[i]; // Add character to the current row
+            if(currRow == numRows - 1){
+                goingDown = false ;
+            }
 
-            // Change direction if we reach the top or bottom row
-            if (row == 0)
-                goingDown = true;
-            else if (row == numRows - 1)
-                goingDown = false;
-
-            // Move row index up or down depending on direction
-            if (goingDown)
-                row++;
-            else
-                row--;
+            if(goingDown == true){
+                currRow++ ;
+            }else{
+                currRow-- ;
+            }
         }
 
-        string result = ""; // This will hold the final zigzag string
+        string ans = "" ;
 
-        // Combine all rows into the result string
-        for (int i = 0; i < numRows; i++) {
-            result += rows[i];
-        }
+        for(int i = 0 ; i< rows.size() ;i++){
+            ans = ans + rows[i];
+        }  
 
-        return result; // Return the final converted string
+        return ans ;
     }
 };
