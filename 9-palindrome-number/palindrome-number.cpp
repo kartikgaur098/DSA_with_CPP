@@ -1,20 +1,22 @@
 class Solution {
 public:
     bool isPalindrome(int x) {
-        if(x<0) return false ;
-        string num = to_string(x);
-        int left = 0 ;
-        int right = num.length()-1;
 
-        while(left < right){
-            if(num[left] == num[right]){
-                left++ ;
-                right--;
-            }
-            else{
-                return false ;
-            }
+        if(x < 0) return false;
+
+        int original = x;
+
+        long long rev = 0;
+
+        while(x > 0){
+
+            int digit = x % 10;
+
+            rev = rev * 10 + digit;
+
+            x /= 10;
         }
-        return true ;
+
+        return original == rev;
     }
 };
