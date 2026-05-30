@@ -1,13 +1,24 @@
 class Solution {
 public:
+
+    void solve(vector<int> & nums  , vector<vector<int>> &ans  , int i){
+
+        if(i >= nums.size()){
+            ans.push_back(nums);
+            return ;
+        }
+
+        for(int j = i ; j < nums.size() ; j++){
+            swap(nums[i] , nums[j]);
+            solve(nums , ans , i+1);
+            swap(nums[i], nums[j]);
+        }
+    }
     vector<vector<int>> permute(vector<int>& nums) {
-        sort(nums.begin(), nums.end());  // Start from the smallest permutation
-        vector<vector<int>> result;
-
-        do {
-            result.push_back(nums);
-        } while (next_permutation(nums.begin(), nums.end()));  // STL function
-
-        return result;
+        vector<vector<int>> ans ;
+        int i = 0 ;
+        solve(nums , ans ,  i );
+        return ans ;
+        
     }
 };
